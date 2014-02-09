@@ -19,10 +19,19 @@ function registroUsuario(){
 	pass 			= campoPassword.value;
 	var urlService 	= "http://localhost/webimagen/servicios/ServicioUsuario.php";
 	var params		= "nombreServicio=registro" + "&nombre=" + nombre + "&email=" + email + "&password=" + pass;
-	callService(urlService, params, 'success', 'jsonp');
+	callService(urlService, params, 'success');
 } 
 
-function callService(urlService, params, cb, dataT){
+function login(){
+    var email, pass;
+    email           = campoEmailLogin.value;
+    pass            = campoPasswordLogin.value;
+    var urlService  = "http:/localhost/webimagen/servicios/ServicioUsuario.php";
+    var params      = "nombreServicio=login" + "&email=" + email + "&password=" + pass;
+    callService(urlService, params, 'procesoInicio');
+} 
+
+function callService(urlService, params, cb){
     $.ajax({
         dataType:       'jsonp',
         url:            urlService,
@@ -46,4 +55,15 @@ function success(data){
     }else{
         alert("se ha registrado exitosamente")
     }
+}
+
+function procesoInicio(data){
+    
+    var nombre;
+    if (data[0] == -1) {
+
+        
+    };
+    nombre = data[0];
+    alert(nombre);
 }

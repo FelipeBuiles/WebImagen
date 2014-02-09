@@ -43,7 +43,7 @@ class ServicioUsuario {
         if($result) {
             $_SESSION['user'] = $result['id'];
         }
-        echo "procesoIncio([" . json_encode($result) . "])";
+        echo "procesoInicio([" . json_encode($result) . "])";
     }
 }
 
