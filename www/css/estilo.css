@@ -40,9 +40,10 @@ h1 {
   cursor: pointer;
   display: inline-block;
   font-size: 12px;
-  margin: 18px 0 0 0;
-  padding: 5px 14px;
+  margin: 18px 20px 0 0;
+  padding: 10px 25px;
   text-decoration: none;
+  float: right;
 }
 
 .contenedor1 {
@@ -50,7 +51,11 @@ h1 {
   border: 1px solid #BDBDBD;
   border-radius: 3px;
   box-shadow: 0 0 2px #d8d8d8;
-  margin: 10px 0 10px 350px;
+  margin-left: 4%;
+  margin-bottom: 40px;
+  margin-top: 20px; 
+  margin-right: 50px;
+  display: block;
   float: left;
   width: 800px;
   height: 600px;
@@ -68,4 +73,29 @@ h1 {
 .imagen {
   vertical-align: middle;
   width: 100%;
+}
+
+.panelUsuario {
+  border: 1px solid #BDBDBD;
+  border-radius: 3px;
+  box-shadow: 0 0 2px #d8d8d8;
+  margin-top: 20px;
+  margin-left: 50%;
+  display: block;
+  position: fixed;
+  padding: 5px 5px 5px 5px;
+  float: right;
+}
+
+.usrImg {
+	width: 130px;
+	height: 130px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: auto;
+	box-shadow:
+    0 10px 20px #777, 
+    0 0 200px #000 inset,
+    0 0 150px #000 inset,
+    0 0 100px #000 inset;
 }

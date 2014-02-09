@@ -23,6 +23,11 @@ switch ($nombreServicio) {
         $servicio->login($email, $pass);
         break;
 
+    case 'session' :
+        $servicio   = new ServicioUsuario();
+        $servicio->getSession();
+        break;
+
     default :
         break; 
 }
@@ -44,6 +49,14 @@ class ServicioUsuario {
             $_SESSION['user'] = $result['id'];
         }
         echo "procesoInicio([" . json_encode($result) . "])";
+    }
+
+    public function getSession(){
+        if(isset($_SESSION['user'])){
+            echo "procesoInicio([".json_decode($_SESSION['user'])."])";
+        } else {
+            echo "procesoInicio([".json_decode(-1)."])";
+        }
     }
 }
 

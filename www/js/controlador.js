@@ -1,3 +1,5 @@
+window.onload = mostrarLista();
+
 $(function(){
 	init();
 });
@@ -9,6 +11,16 @@ function init(){
 	});
     $("#btnLogin").on("click", function(){
         login();
+    });
+
+    $("#btnSubirImagen").on("click", function(){
+        if (verificarLogin()){
+            //to do subir imagen
+        } 
+    });
+
+    $("#btnDescarga").on("click", function(){
+        // to do
     });
 }
 
@@ -31,6 +43,18 @@ function login(){
     callService(urlService, params, 'procesoInicio');
 } 
 
+function verificarLogin(){
+    var urlService  = "http://localhost/webimagen/servicios/ServicioUsuario.php";
+    var params      = "nombreServicio=session";
+    callService(urlService, params, "procesoInicio");
+}
+
+function mostrarLista(){
+    var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
+    var params      = "nombreServicio=listar";
+    callService(urlService, params, "cargarImagenes");
+}
+
 function callService(urlService, params, cb){
     $.ajax({
         dataType:       'jsonp',
@@ -47,6 +71,19 @@ function callService(urlService, params, cb){
         }});
 }
 
+function cargarImagenes(data){
+    for(var i = 0; i < data[0].length; i++){
+        var str = '<div class="contenedor1">';
+        str += "<div class='contenedor2'><img class='imagen'";
+        str += " id=imagen"+data[0][i].id;
+        str += " src="+data[0][i].src+">"; 
+        str += "<button class='btn' "; 
+        str += 'id="btnDescarga">Descargar</button>';
+        str += '</div> </div>';
+        $('.lista').append(str); 
+    }
+}
+
 function exito(data){
     if(data == "false"){
         alert("Este email ya esta registrado");
@@ -56,5 +93,9 @@ function exito(data){
 }
 
 function procesoInicio(data){
-    window.top.location.href = 'index.html?' + data;
+    if(data[0] === -1){
+        window.top.location.href = 'registro.html';
+    } else {
+        window.top.location.href = 'index.html';
+    }
 }
