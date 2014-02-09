@@ -7,6 +7,9 @@ function init(){
 	$("#btnRegistro").on("click", function(){
 		registroUsuario();
 	});
+    $("#btnLogin").on("click", function(){
+        login();
+    });
 }
 
 function registroUsuario(){
