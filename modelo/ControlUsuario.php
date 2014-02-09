@@ -4,7 +4,8 @@ include "../dao/DAO_Usuario.php";
 class ControlUsuario {
 
 	public function consultar($email, $pass) {
-		return DAO_Usuario::buscarUsuario($email, $pass);
+		$result = DAO_Usuario::buscarUsuario($email, $pass);
+		return $result;
 	}
 
 	public function registrar($nombre, $email, $pass) {
