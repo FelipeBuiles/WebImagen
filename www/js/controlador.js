@@ -73,12 +73,13 @@ function callService(urlService, params, cb){
 
 function cargarImagenes(data){
     for(var i = 0; i < data[0].length; i++){
+        console.log()
         var str = '<div class="contenedor1">';
         str += "<div class='contenedor2'><img class='imagen'";
         str += " id=imagen"+data[0][i].id;
         str += " src="+data[0][i].src+">"; 
-        str += "<button class='btn' "; 
-        str += 'id="btnDescarga">Descargar</button>';
+        str += "<a href='" + data[0][i].src + "' download='" + data[0][i].nombre + "'> <button class='btn' "; 
+        str += 'id="btnDescarga">Descargar</button></a>';
         str += '</div> </div>';
         $('.lista').append(str); 
     }
