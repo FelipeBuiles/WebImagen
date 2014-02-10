@@ -15,7 +15,7 @@ function init(){
 
     $("#btnSubirImagen").on("click", function(){
         if (verificarLogin()){
-            //to do subir imagen
+           menuImagen();
         } 
     });
 
@@ -53,6 +53,14 @@ function mostrarLista(){
     var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
     var params      = "nombreServicio=listar";
     callService(urlService, params, "cargarImagenes");
+}
+
+function menuImagen(){
+    var descripcion;
+    descripcion = campoDescripcion.value;
+    var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
+    var params      = "nombreServicio=subir" + "&descripcion=" + descripcion;
+    callService(urlService, params, "successImagen");
 }
 
 function callService(urlService, params, cb){
@@ -100,3 +108,11 @@ function procesoInicio(data){
         window.top.location.href = 'index.html';
     }
 }
+
+function successImagen(data){
+    if(data == "false"){
+        alert("La imagen no se ha podido subir al servidor");
+    }else{
+        alert("Imagen subida exitosamente")
+    }
+}   

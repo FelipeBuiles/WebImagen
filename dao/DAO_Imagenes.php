@@ -12,4 +12,11 @@ class DAO_Imagenes{
 		}
 		return $results;
 	}
+
+	public static function subirImagenes(){
+		$query 	= "INSERT INTO `imagen`(`id`, `src`, `comments`) VALUES (NULL,'$src','$comments')";
+        $result = mysql_query($query);
+
+        return true;
+	}
 }
