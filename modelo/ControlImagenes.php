@@ -7,6 +7,6 @@ class ControlImagenes{
 		return $result;
 	}
 	public function subir($src, $comments){
-		return DAO_Imagenes::subirImagenes();
+		return DAO_Imagenes::subirImagenes($src, $comments);
 	}	
 }

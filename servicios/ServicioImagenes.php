@@ -8,14 +8,14 @@ include "../modelo/ControlImagenes.php";
 
 switch ($nombreServicio){
 	case 'listar':
-		$servicio = new ServicioImagenes();
+		$servicio 	= new ServicioImagenes();
 		$servicio->listarImagenes();
 		break;
 	case 'subir':
-		$src = subir().$url;
-		$comments = $_GET['comments'];
-		$servicio = new ServicioImagenes();
-		$servicio->subirImagen($src, $comments);
+		@$src 		= $_FILES["file"]["name"];
+		@$comments 	= $_GET['comments'];
+		$servicio 	= new ServicioImagenes();
+		$servicio->subir($src, $comments);
 		break;
 	default:
 		break;
@@ -31,20 +31,24 @@ class ServicioImagenes {
 	public function listarImagenes(){
 		echo "cargarImagenes([" . json_encode($this->controlImagenes->listar())."]);";
 	}
-
+/*
 	public function subirImagen(){
 		echo "successImagen([" . json_encode($this->controlImagenes->subir($src, $comments)) . "])";
 	}
-	
-	public function subir(){
+*/
+	public function subir($src, $comments){
+		
+		if ($this->controlImagenes->subir($src, $comments)){
+			if (file_exists("dirImagenes/" . $src))
+			{
+				echo "ya existe";
+			}else{
 
-		if (file_exists("dirImagenes/" . $_FILES["file"]["name"]))
-		{
-			echo "(".$_FILES["file"]["name"].")"." already exists. "."</div>";
-		}else{
-
-			move_uploaded_file($_FILES["file"]["tmp_name"], "dirImagenes/" . $_FILES["file"]["name"]);
-			echo "Stored in: " ."dirImagenes/" . $_FILES["file"]["name"]."";
+				move_uploaded_file($src, "dirImagenes/" . $src);
+				echo "successImagen([])";
+			}
+		} else {
+			echo "problemas problemisticos";
 		}
 	}
 }

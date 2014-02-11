@@ -14,9 +14,8 @@ class DAO_Imagenes{
 	}
 
 	public static function subirImagenes($src, $comments){
-		$query 	= "INSERT INTO `imagen`(`id`, `src`, `comments`) VALUES (NULL,'$src','$comments')";
+		$query 	= "INSERT INTO `imagen`(`id`, `src`, `comments`, ) VALUES (NULL,'$src','$comments')";
         $result = mysql_query($query);
-
-        return true;
+		return true;
 	}
 }

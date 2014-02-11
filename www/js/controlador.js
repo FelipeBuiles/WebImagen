@@ -9,14 +9,13 @@ function init(){
 	$("#btnRegistro").on("click", function(){
 		registroUsuario();
 	});
+
     $("#btnLogin").on("click", function(){
         login();
     });
 
     $("#btnSubirImagen").on("click", function(){
-        if (verificarLogin()){
-           menuImagen();
-        } 
+        menuImagen();
     });
 }
 
@@ -52,11 +51,13 @@ function mostrarLista(){
 }
 
 function menuImagen(){
-    var descripcion;
-    descripcion = campoDescripcion.value;
+    var descripcion, src;
+    src             = file.value;
+    descripcion     = campoDescripcion.value;
     var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
     var params      = "nombreServicio=subir" + "&descripcion=" + descripcion;
-    callService(urlService, params, "successImagen");
+    console.log("entra a menu imagen");
+    callService(urlService, params, 'successImagen');
 }
 
 function callService(urlService, params, cb){
@@ -68,7 +69,6 @@ function callService(urlService, params, cb){
         crossDomain:    true, 
         jsonpCallback:  cb,
         error: function(xhr, status, error) {
-            console.log("test");
             console.log(xhr);
             console.log(status);
             console.log(error);
@@ -105,7 +105,7 @@ function procesoInicio(data){
 }
 
 function successImagen(data){
-    if(data == "false"){
+    if(data[0] == -1){
         alert("La imagen no se ha podido subir al servidor");
     }else{
         alert("Imagen subida exitosamente")
