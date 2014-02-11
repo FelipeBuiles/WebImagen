@@ -12,10 +12,10 @@ switch ($nombreServicio){
 		$servicio->listarImagenes();
 		break;
 	case 'subir':
-		@$src 		= $_FILES["file"]["name"];
-		@$comments 	= $_GET['comments'];
-		$servicio 	= new ServicioImagenes();
-		$servicio->subir($src, $comments);
+		@$src 			= "asdpng";
+		@$descripcion 	= $_GET['descripcion'];
+		$servicio 		= new ServicioImagenes();
+		$servicio->subirImagen($src, $descripcion);
 		break;
 	default:
 		break;
@@ -31,24 +31,20 @@ class ServicioImagenes {
 	public function listarImagenes(){
 		echo "cargarImagenes([" . json_encode($this->controlImagenes->listar())."]);";
 	}
-/*
-	public function subirImagen(){
-		echo "successImagen([" . json_encode($this->controlImagenes->subir($src, $comments)) . "])";
-	}
-*/
-	public function subir($src, $comments){
-		
-		if ($this->controlImagenes->subir($src, $comments)){
-			if (file_exists("dirImagenes/" . $src))
-			{
-				echo "ya existe";
-			}else{
 
-				move_uploaded_file($src, "dirImagenes/" . $src);
-				echo "successImagen([])";
-			}
-		} else {
-			echo "problemas problemisticos";
-		}
+	public function subirImagen($src, $descripcion){
+		echo "successImagen([" . json_encode($this->controlImagenes->subir($src, $descripcion)) . "])";
 	}
+
+	//public function subirImagen($src, $descripcion){
+		
+	//		if (file_exists("dirImagenes/" . $src))
+	//		{
+	//			echo "Ya existe la imagen";
+	//		}else{
+
+	//			move_uploaded_file($src, "dirImagenes/" . $src);
+	//			echo "successImagen([" . json_encode($this->controlImagenes->subir($src, $descripcion)) . "])";
+	//		}
+	//}
 }

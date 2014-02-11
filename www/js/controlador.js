@@ -14,9 +14,24 @@ function init(){
         login();
     });
 
-    $("#btnSubirImagen").on("click", function(){
-        menuImagen();
-    });
+       var uploader = document.getElementById('uploadButton');
+
+       upclick(
+         {
+          element: uploader,
+          action: '../modelo/upload.php', 
+          onstart:
+            function(filename)
+            {
+              alert('Start upload: '+ filename);
+            },
+          oncomplete:
+            function(response_data) 
+            {
+              menuImagen();
+              alert(response_data);
+            }
+         });
 }
 
 function registroUsuario(){
@@ -51,12 +66,12 @@ function mostrarLista(){
 }
 
 function menuImagen(){
-    var descripcion, src;
-    src             = file.value;
+    console.log("estoy en menu imagen");
+    var src, descripcion;
+    src             = "COMO AGARRAR EL NOMBRE";
     descripcion     = campoDescripcion.value;
     var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
-    var params      = "nombreServicio=subir" + "&descripcion=" + descripcion;
-    console.log("entra a menu imagen");
+    var params      = "nombreServicio=subir" + "&src=" + src + "&descripcion=" + descripcion;
     callService(urlService, params, 'successImagen');
 }
 
@@ -105,9 +120,9 @@ function procesoInicio(data){
 }
 
 function successImagen(data){
-    if(data[0] == -1){
+    if(data == "false"){
         alert("La imagen no se ha podido subir al servidor");
-    }else{
+    }else if(data == "true"){
         alert("Imagen subida exitosamente")
     }
-}   
+}

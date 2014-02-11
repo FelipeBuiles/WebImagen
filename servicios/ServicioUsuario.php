@@ -40,7 +40,7 @@ class ServicioUsuario {
     }
 
     public function registro($nombre, $email, $pass) {
-        echo "success([" . json_encode($this->controlUsuario->registrar($nombre, $email, $pass)) . "])";
+        echo "exito([" . json_encode($this->controlUsuario->registrar($nombre, $email, $pass)) . "])";
     }
 
     public function login($email, $pass) {
