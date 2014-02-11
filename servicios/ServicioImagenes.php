@@ -12,8 +12,8 @@ switch ($nombreServicio){
 		$servicio->listarImagenes();
 		break;
 	case 'subir':
-		@$src = subir().$url;
-		@$comments = $_GET['comments'];
+		$src = subir().$url;
+		$comments = $_GET['comments'];
 		$servicio = new ServicioImagenes();
 		$servicio->subirImagen($src, $comments);
 		break;
@@ -29,22 +29,22 @@ class ServicioImagenes {
 	}
 
 	public function listarImagenes(){
-		echo "cargarImagenes([".json_encode($this->controlImagenes->listar())."]);";
+		echo "cargarImagenes([" . json_encode($this->controlImagenes->listar())."]);";
 	}
 
 	public function subirImagen(){
-		 echo "successImagen([" . json_encode($this->controlImagenes->subir($src, $comments) . "])";	
+		echo "successImagen([" . json_encode($this->controlImagenes->subir($src, $comments)) . "])";
 	}
-
+	
 	public function subir(){
 
-			@$url = "C:\Users\sgarcesm\Desktop\Cosas/" . $_FILES["file"]["name"];
+		if (file_exists("dirImagenes/" . $_FILES["file"]["name"]))
+		{
+			echo "(".$_FILES["file"]["name"].")"." already exists. "."</div>";
+		}else{
 
-			if (file_exists("C:\Users\sgarcesm\Desktop\Cosas/" . $_FILES["file"]["name"]))
-			{
-				echo "(".$_FILES["file"]["name"].")"." already exists. "."</div>";
-			}else{
-				move_uploaded_file($_FILES["file"]["tmp_name"], "C:\Users\sgarcesm\Desktop\Cosas/" . $_FILES["file"]["name"]);
-			}
+			move_uploaded_file($_FILES["file"]["tmp_name"], "dirImagenes/" . $_FILES["file"]["name"]);
+			echo "Stored in: " ."dirImagenes/" . $_FILES["file"]["name"]."";
+		}
 	}
 }

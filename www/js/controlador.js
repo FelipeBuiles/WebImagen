@@ -18,10 +18,6 @@ function init(){
            menuImagen();
         } 
     });
-
-    $("#btnDescarga").on("click", function(){
-        // to do
-    });
 }
 
 function registroUsuario(){
@@ -80,8 +76,7 @@ function callService(urlService, params, cb){
 }
 
 function cargarImagenes(data){
-    for(var i = 0; i < data[0].length; i++){
-        console.log()
+    for(var i = data[0].length-1; i >= 0 ; i--){
         var str = '<div class="contenedor1">';
         str += "<div class='contenedor2'><img class='imagen'";
         str += " id=imagen"+data[0][i].id;

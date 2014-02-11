@@ -13,7 +13,7 @@ class DAO_Imagenes{
 		return $results;
 	}
 
-	public static function subirImagenes(){
+	public static function subirImagenes($src, $comments){
 		$query 	= "INSERT INTO `imagen`(`id`, `src`, `comments`) VALUES (NULL,'$src','$comments')";
         $result = mysql_query($query);
 
