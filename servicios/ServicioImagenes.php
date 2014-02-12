@@ -12,7 +12,8 @@ switch ($nombreServicio){
 		$servicio->listarImagenes();
 		break;
 	case 'subir':
-		@$src 			= "asdpng";
+		@$src 			= $_GET['src'];
+		$src = "../dirImagenes/" . $src;
 		@$descripcion 	= $_GET['descripcion'];
 		$servicio 		= new ServicioImagenes();
 		$servicio->subirImagen($src, $descripcion);

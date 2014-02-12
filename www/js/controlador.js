@@ -1,5 +1,6 @@
 window.onload = mostrarLista();
 
+
 $(function(){
 	init();
 });
@@ -14,24 +15,16 @@ function init(){
         login();
     });
 
-       var uploader = document.getElementById('uploadButton');
-
-       upclick(
-         {
-          element: uploader,
-          action: '../modelo/upload.php', 
-          onstart:
-            function(filename)
-            {
-              alert('Start upload: '+ filename);
-            },
-          oncomplete:
-            function(response_data) 
-            {
-              menuImagen();
-              alert(response_data);
-            }
-         });
+    var uploader = document.getElementById('uploadButton');
+    upclick(
+     {
+      element: uploader,
+      action: '../modelo/upload.php', 
+      onstart:
+        function(filename){
+            menuImagen(filename);
+        }
+     });
 }
 
 function registroUsuario(){
@@ -65,10 +58,10 @@ function mostrarLista(){
     callService(urlService, params, "cargarImagenes");
 }
 
-function menuImagen(){
-    console.log("estoy en menu imagen");
+function menuImagen(filename){
     var src, descripcion;
-    src             = "COMO AGARRAR EL NOMBRE";
+    src             = filename;
+    console.log(src);
     descripcion     = campoDescripcion.value;
     var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
     var params      = "nombreServicio=subir" + "&src=" + src + "&descripcion=" + descripcion;
@@ -96,8 +89,8 @@ function cargarImagenes(data){
         str += "<div class='contenedor2'><img class='imagen'";
         str += " id=imagen"+data[0][i].id;
         str += " src="+data[0][i].src+">"; 
-        str += "<a href='" + data[0][i].src + "' download='" + data[0][i].nombre + "'> <button class='btn' "; 
-        str += 'id="btnDescarga">Descargar</button></a>';
+        str += "<a href='" + data[0][i].src + "' download='" + data[0][i].src.substring(15) + "'>"; 
+        str += '<button class="btn" id="btnDescarga">Descargar</button></a>';
         str += '</div> </div>';
         $('.lista').append(str); 
     }
@@ -123,6 +116,6 @@ function successImagen(data){
     if(data == "false"){
         alert("La imagen no se ha podido subir al servidor");
     }else if(data == "true"){
-        alert("Imagen subida exitosamente")
+        //alert("Imagen subida exitosamente")
     }
 }
