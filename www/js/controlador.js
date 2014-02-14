@@ -128,7 +128,16 @@ function procesoLogin(data){
 }
 
 function procesoInicio(data){
-    window.usr = data;
+    window.usr = data[0];
+    console.log(usr);
+    if (usr != -1){
+        $('#btnUpload').remove();
+        var str = '<img class="usrImg" src="img/usr.jpg"/><h1>';
+        str += usr.nombre;
+        str += '</h1><input id="campoDescripcion" placeholder="Descripcion Imagen" required/>';
+        str += '<input type="button" id="btnUpload" value="Upload"></div>';
+        $('.panelUsuario').append(str);
+    }
 }
 
 function successImagen(data){

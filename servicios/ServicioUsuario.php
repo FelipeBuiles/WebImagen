@@ -44,6 +44,7 @@ class ServicioUsuario {
     }
 
     public function login($email, $pass) {
+        $_SESSION['user'] = -1;
         $result = $this->controlUsuario->consultar($email, $pass);
         if($result) {
             $_SESSION['user'] = $result;
