@@ -1,5 +1,7 @@
-window.onload = mostrarLista();
-
+window.onload = function(){
+    mostrarLista();
+    verificarLogin();
+}
 
 $(function(){
 	init();
@@ -15,16 +17,13 @@ function init(){
         login();
     });
 
-    var uploader = document.getElementById('uploadButton');
-    upclick(
-     {
-      element: uploader,
-      action: '../modelo/upload.php', 
-      onstart:
-        function(filename){
-            menuImagen(filename);
+    $("#btnUpload").on("click", function(){
+        if (usr == -1){
+            window.top.location.href = "registro.html";
+        } else {
+            subirImagen();
         }
-     });
+    });
 }
 
 function registroUsuario(){
@@ -43,13 +42,32 @@ function login(){
     pass            = campoPasswordLogin.value;
     var urlService  = "http://localhost/webimagen/servicios/ServicioUsuario.php";
     var params      = "nombreServicio=login" + "&email=" + email + "&password=" + pass;
-    callService(urlService, params, 'procesoInicio');
+    callService(urlService, params, 'procesoLogin');
 } 
 
 function verificarLogin(){
     var urlService  = "http://localhost/webimagen/servicios/ServicioUsuario.php";
     var params      = "nombreServicio=session";
     callService(urlService, params, "procesoInicio");
+}
+
+function cargarBoton(){
+    if (verificarLogin()){
+        mostrarBotonSubida();
+    }
+}
+
+function subirImagen(){
+    var uploader = document.getElementById('btnUpload');
+    upclick(
+     {
+      element: uploader,
+      action: '../modelo/upload.php', 
+      onstart:
+        function(filename){
+            menuImagen(filename);
+        }
+     });
 }
 
 function mostrarLista(){
@@ -60,8 +78,7 @@ function mostrarLista(){
 
 function menuImagen(filename){
     var src, descripcion;
-    src             = filename;
-    console.log(src);
+    src             = filename.substring(12);
     descripcion     = campoDescripcion.value;
     var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
     var params      = "nombreServicio=subir" + "&src=" + src + "&descripcion=" + descripcion;
@@ -104,12 +121,14 @@ function exito(data){
     }
 }
 
-function procesoInicio(data){
-    if(data[0] === -1){
-        window.top.location.href = 'registro.html';
-    } else {
-        window.top.location.href = 'index.html';
+function procesoLogin(data){
+    if (data[0] != -1){
+        window.top.location.href = "index.html";
     }
+}
+
+function procesoInicio(data){
+    window.usr = data;
 }
 
 function successImagen(data){

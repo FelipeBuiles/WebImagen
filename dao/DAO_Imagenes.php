@@ -4,7 +4,7 @@ include "../connection/connection.php";
 
 class DAO_Imagenes{
 	public static function listarImagenes(){
-		$query   = "SELECT * FROM imagen LIMIT 0, 5";
+		$query   = "SELECT * FROM imagen LIMIT 0, 10";
 		$imagen  = mysql_query($query);
 		$results = array();
 		while($rs = mysql_fetch_assoc($imagen)){

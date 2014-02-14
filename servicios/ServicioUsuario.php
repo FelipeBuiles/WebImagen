@@ -46,14 +46,14 @@ class ServicioUsuario {
     public function login($email, $pass) {
         $result = $this->controlUsuario->consultar($email, $pass);
         if($result) {
-            $_SESSION['user'] = $result['id'];
+            $_SESSION['user'] = $result;
         }
-        echo "procesoInicio([" . json_encode($result) . "])";
+        echo "procesoLogin([" . json_encode($result) . "])";
     }
 
     public function getSession(){
         if(isset($_SESSION['user'])){
-            echo "procesoInicio([".json_decode($_SESSION['user'])."])";
+            echo "procesoInicio([".json_encode($_SESSION['user'])."])";
         } else {
             echo "procesoInicio([".json_decode(-1)."])";
         }
