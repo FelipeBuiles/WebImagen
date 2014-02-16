@@ -13,7 +13,7 @@ switch ($nombreServicio){
 		break;
 	case 'subir':
 		@$src 			= $_GET['src'];
-		$src = "../dirImagenes/" . $src;
+		$src = "dirImagenes/" . $src;
 		@$descripcion 	= $_GET['descripcion'];
 		$servicio 		= new ServicioImagenes();
 		$servicio->subirImagen($src, $descripcion);

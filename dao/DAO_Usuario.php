@@ -10,16 +10,15 @@ class DAO_Usuario {
 	}
 	
 	public static function crearUsuario($nombre, $email, $pass) {
-		$query 	= "SELECT * FROM `usuario` WHERE `email`= '".$email."' ";
+		/*$query 	= "SELECT * FROM `usuario` WHERE `email`= '".$email."";
 		$result	= mysql_query($query);
-		$row    = mysql_fetch_assoc($result);
-		if($row['email'] != $email) {
+		if($result) {*/
 			$query 	= "INSERT INTO `usuario`(`id`, `nombre`, `email`, `password`) VALUES (NULL,'$nombre','$email','$pass')";
             $result = mysql_query($query);
-
             return true;
-		}
-		return false;
+		/*}
+		echo "<?$email?>";
+		return false;*/
 	}
 }
 
