@@ -10,7 +10,8 @@ $(function(){
 function init(){
 
 	$("#btnRegistro").on("click", function(){
-		registroUsuario();
+		registroCheck();
+        registroUsuario(); 
 	});
 
     $("#btnLogin").on("click", function(){
@@ -35,6 +36,17 @@ function registroUsuario(){
 	var params		= "nombreServicio=registro" + "&nombre=" + nombre + "&email=" + email + "&password=" + pass;
 	callService(urlService, params, 'exito');
 } 
+
+function registroCheck(){
+    var email, pass;
+    email           = campoEmail.value;
+    pass            = campoPassword.value;
+    var urlService  = "http://localhost/webimagen/servicios/ServicioUsuario.php";
+    var params      = "nombreServicio=login" + "&email=" + email + "&password=" + pass;
+    callService(urlService, params, 'procesoRegistroLogin');
+}
+
+
 
 function login(){
     var email, pass;
@@ -107,7 +119,7 @@ function cargarImagenes(data){
         str += " id=imagen"+data[0][i].id;
         str += " src="+data[0][i].src+">"; 
         str += "<a href='" + data[0][i].src + "' download='" + data[0][i].src.substring(15) + "'>"; 
-        str += '<button class="btn" id="btnDescarga">Descargar</button></a>';
+        str += '<button clasxs="btn" id="btnDescarga">Descargar</button></a>';
         str += '</div> </div>';
         $('.lista').append(str); 
     }
@@ -117,13 +129,19 @@ function exito(data){
     if(data == "false"){
         alert("Este email ya esta registrado");
     }else{
-        alert("se ha registrado exitosamente")
+        alert("Se ha registrado exitosamente");
     }
 }
 
 function procesoLogin(data){
     if (data[0] != -1){
         window.top.location.href = "index.html";
+    }
+}
+
+function procesoRegistroLogin(data){
+    if (data[0] != -1){
+        alert("Este email ya esta registrado");
     }
 }
 
