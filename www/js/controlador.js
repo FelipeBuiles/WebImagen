@@ -10,7 +10,6 @@ $(function(){
 function init(){
 
 	$("#btnRegistro").on("click", function(){
-		registroCheck();
         registroUsuario(); 
 	});
 
@@ -19,10 +18,11 @@ function init(){
     });
 
     $("#btnUpload").on("click", function(){
-        if (usr == -1){
-            window.top.location.href = "registro.html";
+       
+       if (usr == -1){
+           window.top.location.href = "registro.html";
         } else {
-            subirImagen();
+           subirImagen();
         }
     });
 }
@@ -36,17 +36,6 @@ function registroUsuario(){
 	var params		= "nombreServicio=registro" + "&nombre=" + nombre + "&email=" + email + "&password=" + pass;
 	callService(urlService, params, 'exito');
 } 
-
-function registroCheck(){
-    var email, pass;
-    email           = campoEmail.value;
-    pass            = campoPassword.value;
-    var urlService  = "http://localhost/webimagen/servicios/ServicioUsuario.php";
-    var params      = "nombreServicio=login" + "&email=" + email + "&password=" + pass;
-    callService(urlService, params, 'procesoRegistroLogin');
-}
-
-
 
 function login(){
     var email, pass;
@@ -133,15 +122,9 @@ function exito(data){
     }
 }
 
-function procesoLogin(data){
+function procesoLogin(data)
     if (data[0] != -1){
         window.top.location.href = "index.html";
-    }
-}
-
-function procesoRegistroLogin(data){
-    if (data[0] != -1){
-        alert("Este email ya esta registrado");
     }
 }
 
@@ -149,12 +132,10 @@ function procesoInicio(data){
     window.usr = data[0];
     console.log(usr);
     if (usr != -1){
-        $('#btnUpload').remove();
         var str = '<img class="usrImg" src="img/usr.jpg"/><h1>';
         str += usr.nombre;
         str += '</h1><input id="campoDescripcion" placeholder="Descripcion Imagen" required/>';
-        str += '<input type="button" id="btnUpload" value="Upload"></div>';
-        $('.panelUsuario').append(str);
+        $(str).insertBefore("#btnUpload");
     }
 }
 
