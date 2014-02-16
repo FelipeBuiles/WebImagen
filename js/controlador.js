@@ -1,3 +1,5 @@
+var url = "http://localhost/webimagen/servicios/";
+
 window.onload = function(){
     mostrarLista();
     verificarLogin();
@@ -24,6 +26,10 @@ function init(){
            subirImagen();
         }
     });
+
+    $("#btnBuscar").on("click", function(){
+        buscarImagen();
+    });
 }
 
 function registroUsuario(){
@@ -31,7 +37,7 @@ function registroUsuario(){
 	nombre 			= campoNombre.value;
 	email 			= campoEmail.value;
 	pass 			= campoPassword.value;
-	var urlService 	= "http://localhost/webimagen/servicios/ServicioUsuario.php";
+	var urlService 	= url + "ServicioUsuario.php";
 	var params		= "nombreServicio=registro" + "&nombre=" + nombre + "&email=" + email + "&password=" + pass;
 	callService(urlService, params, 'exito');
 } 
@@ -40,13 +46,13 @@ function login(){
     var email, pass;
     email           = campoEmailLogin.value;
     pass            = campoPasswordLogin.value;
-    var urlService  = "http://localhost/webimagen/servicios/ServicioUsuario.php";
+    var urlService  = url + "ServicioUsuario.php";
     var params      = "nombreServicio=login" + "&email=" + email + "&password=" + pass;
     callService(urlService, params, 'procesoLogin');
 } 
 
 function verificarLogin(){
-    var urlService  = "http://localhost/webimagen/servicios/ServicioUsuario.php";
+    var urlService  = url + "ServicioUsuario.php";
     var params      = "nombreServicio=session";
     callService(urlService, params, "procesoInicio");
 }
@@ -71,18 +77,25 @@ function subirImagen(){
 }
 
 function mostrarLista(){
-    var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
+    var urlService  = url + "ServicioImagenes.php";
     var params      = "nombreServicio=listar";
     callService(urlService, params, "cargarImagenes");
 }
 
 function menuImagen(filename){
     var src, descripcion;
-    src             = filename;
+    src             = filename.substring(12);
     descripcion     = campoDescripcion.value;
-    var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
+    var urlService  = url + "ServicioImagenes.php";
     var params      = "nombreServicio=subir" + "&src=" + src + "&descripcion=" + descripcion;
     callService(urlService, params, 'successImagen');
+}
+
+function buscarImagen(){
+    var criterio    = campoCriterio.value;
+    var urlService  = url + "ServicioImagenes.php";
+    var params      = "nombreServicio=buscar" + "&criterio=" + criterio;
+    callService(urlService, params, 'successBuscar');
 }
 
 function callService(urlService, params, cb){
@@ -142,5 +155,24 @@ function successImagen(data){
         alert("La imagen no se ha podido subir al servidor");
     }else if(data == "true"){
         //alert("Imagen subida exitosamente")
+    }
+}
+
+function successBuscar(data){
+    if(data[0].length > 0){
+        var array = data[0];
+        $(".contenedor1").remove();
+        for(var i = array.length-1 ; i >= 0; i--){
+            var str = '<div class="contenedor1">';
+            str += "<div class='contenedor2'><img class='imagen'";
+            str += " id=imagen"+array[i].id;
+            str += " src="+data[0][i].src+">"; 
+            str += "<a href='" + array[i].src + "' download='" + array[i].src.substring(15) + "'>"; 
+            str += '<button class="btn" id="btnDescarga">Descargar</button></a>';
+            str += '</div> </div>';
+            $('.lista').append(str); 
+        }
+    } else {
+        console.log("no encuentra");
     }
 }

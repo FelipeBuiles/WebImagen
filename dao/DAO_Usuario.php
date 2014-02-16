@@ -1,7 +1,6 @@
 <?php
 include "../connection/connection.php";
 
-
 class DAO_Usuario {
 
 	public static function buscarUsuario($email, $pass) {

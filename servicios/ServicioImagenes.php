@@ -18,6 +18,11 @@ switch ($nombreServicio){
 		$servicio 		= new ServicioImagenes();
 		$servicio->subirImagen($src, $descripcion);
 		break;
+	case 'buscar':
+		@$criterio 	= $_GET['criterio'];
+		$servicio 		= new ServicioImagenes();
+		$servicio->buscarImagen($criterio);
+		break;
 	default:
 		break;
 }
@@ -37,6 +42,9 @@ class ServicioImagenes {
 		echo "successImagen([" . json_encode($this->controlImagenes->subir($src, $descripcion)) . "])";
 	}
 
+	public function buscarImagen($criterio){
+		echo "successBuscar([" . json_encode($this->controlImagenes->buscar($criterio)) . "])";
+	}
 	//public function subirImagen($src, $descripcion){
 		
 	//		if (file_exists("dirImagenes/" . $src))
