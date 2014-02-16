@@ -18,7 +18,6 @@ function init(){
     });
 
     $("#btnUpload").on("click", function(){
-       
        if (usr == -1){
            window.top.location.href = "registro.html";
         } else {
@@ -79,7 +78,7 @@ function mostrarLista(){
 
 function menuImagen(filename){
     var src, descripcion;
-    src             = filename.substring(12);
+    src             = filename;
     descripcion     = campoDescripcion.value;
     var urlService  = "http://localhost/webimagen/servicios/ServicioImagenes.php";
     var params      = "nombreServicio=subir" + "&src=" + src + "&descripcion=" + descripcion;
@@ -108,7 +107,7 @@ function cargarImagenes(data){
         str += " id=imagen"+data[0][i].id;
         str += " src="+data[0][i].src+">"; 
         str += "<a href='" + data[0][i].src + "' download='" + data[0][i].src.substring(15) + "'>"; 
-        str += '<button clasxs="btn" id="btnDescarga">Descargar</button></a>';
+        str += '<button class="btn" id="btnDescarga">Descargar</button></a>';
         str += '</div> </div>';
         $('.lista').append(str); 
     }
@@ -122,7 +121,7 @@ function exito(data){
     }
 }
 
-function procesoLogin(data)
+function procesoLogin(data){
     if (data[0] != -1){
         window.top.location.href = "index.html";
     }
@@ -130,12 +129,11 @@ function procesoLogin(data)
 
 function procesoInicio(data){
     window.usr = data[0];
-    console.log(usr);
     if (usr != -1){
         var str = '<img class="usrImg" src="img/usr.jpg"/><h1>';
-        str += usr.nombre;
-        str += '</h1><input id="campoDescripcion" placeholder="Descripcion Imagen" required/>';
-        $(str).insertBefore("#btnUpload");
+        str     += usr.nombre;
+        str     += '</h1>';
+        $(str).insertBefore("#campoDescripcion");
     }
 }
 

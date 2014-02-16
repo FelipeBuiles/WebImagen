@@ -16,7 +16,6 @@ class DAO_Usuario {
 		if($result) {*/
 			$query 	= "INSERT INTO `usuario`(`id`, `nombre`, `email`, `password`) VALUES (NULL,'$nombre','$email','$pass')";
             $result = mysql_query($query);
-
             return true;
 		/*}
 		echo "<?$email?>";
