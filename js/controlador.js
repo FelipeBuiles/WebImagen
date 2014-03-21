@@ -68,7 +68,7 @@ function subirImagen(){
     upclick(
      {
       element: uploader,
-      action: '../modelo/upload.php', 
+      action: '/modelo/upload.php', 
       onstart:
         function(filename){
             menuImagen(filename);
