@@ -12,7 +12,7 @@ $(function(){
 function init(){
 
 	$("#btnRegistro").on("click", function(){
-        registroUsuario(); 
+        registroUsuario();
 	});
 
     $("#btnLogin").on("click", function(){
@@ -40,7 +40,7 @@ function registroUsuario(){
 	var urlService 	= url + "ServicioUsuario.php";
 	var params		= "nombreServicio=registro" + "&nombre=" + nombre + "&email=" + email + "&password=" + pass;
 	callService(urlService, params, 'exito');
-} 
+}
 
 function login(){
     var email, pass;
@@ -49,7 +49,7 @@ function login(){
     var urlService  = url + "ServicioUsuario.php";
     var params      = "nombreServicio=login" + "&email=" + email + "&password=" + pass;
     callService(urlService, params, 'procesoLogin');
-} 
+}
 
 function verificarLogin(){
     var urlService  = url + "ServicioUsuario.php";
@@ -68,7 +68,7 @@ function subirImagen(){
     upclick(
      {
       element: uploader,
-      action: '/modelo/upload.php', 
+      action: '/webImagen/modelo/upload.php', 
       onstart:
         function(filename){
             menuImagen(filename);
@@ -104,7 +104,7 @@ function callService(urlService, params, cb){
         url:            urlService,
         data:           params,
         type:           "GET",
-        crossDomain:    true, 
+        crossDomain:    true,
         jsonpCallback:  cb,
         error: function(xhr, status, error) {
             console.log(xhr);
@@ -118,11 +118,11 @@ function cargarImagenes(data){
         var str = '<div class="contenedor1">';
         str += "<div class='contenedor2'><img class='imagen'";
         str += " id=imagen"+data[0][i].id;
-        str += " src="+data[0][i].src+">"; 
-        str += "<a href='" + data[0][i].src + "' download='" + data[0][i].src.substring(15) + "'>"; 
+        str += " src="+data[0][i].src+">";
+        str += "<a href='" + data[0][i].src + "' download='" + data[0][i].src.substring(15) + "'>";
         str += '<button class="btn" id="btnDescarga">Descargar</button></a>';
         str += '</div> </div>';
-        $('.lista').append(str); 
+        $('.lista').append(str);
     }
 }
 
@@ -166,11 +166,11 @@ function successBuscar(data){
             var str = '<div class="contenedor1">';
             str += "<div class='contenedor2'><img class='imagen'";
             str += " id=imagen"+array[i].id;
-            str += " src="+data[0][i].src+">"; 
-            str += "<a href='" + array[i].src + "' download='" + array[i].src.substring(15) + "'>"; 
+            str += " src="+data[0][i].src+">";
+            str += "<a href='" + array[i].src + "' download='" + array[i].src.substring(15) + "'>";
             str += '<button class="btn" id="btnDescarga">Descargar</button></a>';
             str += '</div> </div>';
-            $('.lista').append(str); 
+            $('.lista').append(str);
         }
     } else {
         console.log("no encuentra");

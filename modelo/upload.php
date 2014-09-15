@@ -1,10 +1,10 @@
 <?php
 	//echo "Upload: " . $_FILES["file"]["name"] . "<br>";
 	//echo "Type: " . $_FILES["file"]["type"] . "<br>";
-//include "ControlImagenes.php";
+	//include "ControlImagenes.php";
 
 	//$controlImagenes = new ControlImagenes();
-	
+
 	//if ($controlImagenes->subir($src, $comments)){
 		if (file_exists("../dirImagenes/" . $_FILES["Filedata"]["name"]))
 		{
